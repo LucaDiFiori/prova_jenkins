@@ -1,5 +1,10 @@
 pipeline {
+    environment {
+        DOCKER_HOST = 'unix:///var/run/docker.sock'
+    }
+
     agent { dockerfile true }
+
     stages {
         stage ('Build') {
             steps {
@@ -15,10 +20,9 @@ pipeline {
                 echo 'Start Testing..'
                 sh '''
                     ./megaphone "Hello, World!"
-               '''
+                '''
             }
         }
-
     }
 
     post {
